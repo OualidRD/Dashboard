@@ -312,22 +312,28 @@ export default function AgenciesPage() {
               </div>
               <div className={styles.modalBody}>
                 <div className={styles.modalGrid}>
-                  {Object.entries(getDisplayData(selectedAgency)).map(([key, value]) => (
-                    <div key={key} className={styles.modalItem}>
-                      <label className={styles.modalLabel}>
-                        {key.charAt(0).toUpperCase() + key.replace(/_/g, ' ').slice(1)}
-                      </label>
-                      <p className={styles.modalValue}>
-                        {key === 'website' && value && value !== 'N/A' ? (
-                          <a href={value.startsWith('http') ? value : `https://${value}`} target="_blank" rel="noopener noreferrer" className={styles.modalLink}>
-                            {value}
-                          </a>
-                        ) : (
-                          value || 'N/A'
-                        )}
-                      </p>
-                    </div>
-                  ))}
+                  {Object.entries(getDisplayData(selectedAgency)).map(([key, value]) => {
+                    // Skip fields with N/A values for cleaner appearance
+                    if (!value || value === 'N/A') {
+                      return null;
+                    }
+                    return (
+                      <div key={key} className={styles.modalItem}>
+                        <label className={styles.modalLabel}>
+                          {key.charAt(0).toUpperCase() + key.replace(/_/g, ' ').slice(1)}
+                        </label>
+                        <p className={styles.modalValue}>
+                          {key === 'website' && value ? (
+                            <a href={value.startsWith('http') ? value : `https://${value}`} target="_blank" rel="noopener noreferrer" className={styles.modalLink}>
+                              {value}
+                            </a>
+                          ) : (
+                            value
+                          )}
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

@@ -560,24 +560,32 @@
                       if (key === 'agency') {
                         return null;
                       }
+                      // Skip fields with N/A values for cleaner appearance
+                      if (!value || value === 'N/A') {
+                        return null;
+                      }
                       return (
                         <div key={key} className={styles.modalItem}>
                           <label className={styles.modalLabel}>
                             {key.charAt(0).toUpperCase() + key.replace(/_/g, ' ').slice(1)}
                           </label>
                           <p className={styles.modalValue}>
-                            {key === 'email' && value && value !== 'N/A' ? (
+                            {key === 'email' && value ? (
                               <a href={`mailto:${value}`} className={styles.modalLink}>
                                 {value}
                               </a>
+                            ) : (key.toLowerCase().includes('form') && key.toLowerCase().includes('url')) && value ? (
+                              <a href={value.startsWith('http') ? value : `https://${value}`} target="_blank" rel="noopener noreferrer" className={styles.modalLink}>
+                                {value}
+                              </a>
                             ) : (
-                              value || 'N/A'
+                              value
                             )}
                           </p>
                         </div>
                       );
                     })}
-                    {selectedContact.agency_id && (
+                    {selectedContact.agency_id && agencyMap[selectedContact.agency_id] && (
                       <div className={styles.modalItem}>
                         <label className={styles.modalLabel}>Agency</label>
                         <p className={styles.modalValue}>
@@ -592,7 +600,7 @@
                             className={styles.agencyLink}
                             title="View agency details"
                           >
-                            {agencyMap[selectedContact.agency_id] || 'N/A'} →
+                            {agencyMap[selectedContact.agency_id]} →
                           </button>
                         </p>
                       </div>
@@ -625,18 +633,22 @@
                       if (['id', 'created_at', 'updated_at', 'mailing_address', 'grade_span', 'locale', 'csa_cbsa', 'domain_name', 'status', 'student_teacher_ratio', 'supervisory_union', 'total_schools', 'total_students'].includes(key)) {
                         return null;
                       }
+                      // Skip fields with N/A values for cleaner appearance
+                      if (!value || value === 'N/A') {
+                        return null;
+                      }
                       return (
                         <div key={key} className={styles.modalItem}>
                           <label className={styles.modalLabel}>
                             {key.charAt(0).toUpperCase() + key.replace(/_/g, ' ').slice(1)}
                           </label>
                           <p className={styles.modalValue}>
-                            {key === 'website' && value && value !== 'N/A' ? (
+                            {key === 'website' && value ? (
                               <a href={value.startsWith('http') ? value : `https://${value}`} target="_blank" rel="noopener noreferrer" className={styles.modalLink}>
                                 {value}
                               </a>
                             ) : (
-                              value || 'N/A'
+                              value
                             )}
                           </p>
                         </div>

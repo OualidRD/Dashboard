@@ -131,7 +131,7 @@ export default function LandingPage() {
             </div>
             <div className={styles.trustBadge}>
               <span className={styles.trustIcon}>✓</span>
-              <p>Trusted by 5,000+ professionals • 99.9% uptime</p>
+              <p>Trusted by 900+ professionals • 99.9% uptime</p>
             </div>
           </div>
 
@@ -239,8 +239,8 @@ export default function LandingPage() {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                 </svg>
               ),
-              title: 'Collaboration Tools',
-              description: 'Share contacts and work seamlessly with your team',
+              title: 'Daily Access Limit',
+              description: 'Free tier includes 50 contact views per day with smart recommendations',
               color: '#7209b7',
             },
             {
@@ -251,8 +251,8 @@ export default function LandingPage() {
                   <line x1="9" y1="14" x2="15" y2="14"></line>
                 </svg>
               ),
-              title: 'Mobile Friendly',
-              description: 'Manage your network on the go with our responsive app',
+              title: 'Fully Responsive',
+              description: 'Navigate from your phone and see the responsive website on any device',
               color: '#00b4d8',
             },
           ].map((feature, idx) => (
@@ -355,9 +355,9 @@ export default function LandingPage() {
 
         <div className={styles.statsGrid}>
           {[
-            { number: '5,000+', label: 'Active Users' },
-            { number: '500K+', label: 'Contacts Connected' },
-            { number: '99.9%', label: 'Uptime' },
+            { number: '900+', label: 'Agencies in Database' },
+            { number: '900+', label: 'Professional Contacts' },
+            { number: '50', label: 'Contacts Per Day' },
           ].map((stat, idx) => (
             <div key={idx} className={styles.statCard}>
               <div className={styles.statNumber}>{stat.number}</div>
@@ -434,11 +434,12 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <button
+              <Link
+                href="/sign-up"
                 className={`${styles.pricingButton} ${plan.highlighted ? styles.primaryBtn : ''}`}
               >
                 {plan.cta}
-              </button>
+              </Link>
             </div>
           ))}
         </div>
