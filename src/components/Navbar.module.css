@@ -3,6 +3,19 @@
   border-bottom: 1px solid #e8e8e8;
   padding: 0.75rem 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 102, 204, 0.2) 50%, transparent 100%);
+  pointer-events: none;
 }
 
 .container {
@@ -32,13 +45,24 @@
   font-size: 1.2rem;
   color: #0066cc;
   min-width: fit-content;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 .logoIcon {
   font-size: 1.3rem;
   display: inline-flex;
   align-items: center;
+  background: linear-gradient(135deg, #0066cc 0%, #00d084 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pulse 3s ease-in-out infinite;
 }
 
 .logoText {
@@ -47,10 +71,18 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 700;
 }
 
-.logo:hover {
-  opacity: 0.85;
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
 }
 
 .links {
@@ -63,49 +95,109 @@
 .link {
   color: #666;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 0.9rem;
-  transition: all 0.2s ease;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 0.35rem;
   position: relative;
+  overflow: hidden;
+}
+
+.link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(135deg, #0066cc 0%, #00d084 100%);
+  transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.05) 0%, rgba(0, 212, 132, 0.02) 100%);
+  border-radius: 0.35rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
 .link:hover {
   color: #0066cc;
 }
 
+.link:hover::before {
+  width: 100%;
+}
+
+.link:hover::after {
+  opacity: 1;
+}
+
 .link.active {
   color: #0066cc;
-  background-color: rgba(0, 102, 204, 0.08);
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.link.active::before {
+  width: 100%;
 }
 
 .upgradeButton {
-  padding: 0.5rem 1rem;
+  padding: 0.65rem 1.5rem;
   background: linear-gradient(135deg, #0066cc 0%, #004fa3 100%);
   color: white;
   border: none;
-  border-radius: 0.35rem;
-  font-weight: 600;
+  border-radius: 0.5rem;
+  font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 102, 204, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.upgradeButton svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.upgradeButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #004fa3 0%, #0066cc 100%);
+  transition: left 0.3s ease;
+  z-index: -1;
 }
 
 .upgradeButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 102, 204, 0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(0, 102, 204, 0.35);
+  letter-spacing: 0.5px;
 }
 
-.upgradeButton:active {
-  transform: translateY(0);
+.upgradeButton:hover::before {
+  left: 0;
 }
 
 .userButton {
@@ -114,14 +206,15 @@
   min-width: fit-content;
   padding: 0.4rem;
   border-radius: 50%;
-  border: 3px solid #999;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 2px solid rgba(0, 102, 204, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0, 102, 204, 0.1);
 }
 
 .userButton:hover {
-  border-color: #0066cc;
-  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.25);
+  border-color: rgba(0, 102, 204, 0.6);
+  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.25);
+  transform: translateY(-2px);
 }
 
 /* Style Clerk UserButton */

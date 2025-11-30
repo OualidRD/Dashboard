@@ -65,9 +65,6 @@ export default function UpgradePage() {
       <Navbar />
       <div className={styles.container}>
         <div className={styles.header}>
-          <button onClick={() => router.back()} className={styles.backButton}>
-            ← Back
-          </button>
           <div className={styles.headerContent}>
             <h1>Choose Your Plan</h1>
             <p>Unlock unlimited access and powerful features</p>

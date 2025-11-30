@@ -173,55 +173,53 @@ export default function AgenciesPage() {
               {totalPages > 1 && ` • Page ${currentPage} of ${totalPages}`}
             </p>
           </div>
-          <button onClick={() => router.push('/dashboard')} className={styles.backButton}>
-            ← Back
-          </button>
         </div>
 
         {/* Filters and Search Section */}
         {!loading && agencies.length > 0 && (
           <div className={styles.filtersContainer}>
-            <div className={styles.filterLabel}>Filter by:</div>
-            <div className={styles.filtersGrid}>
-              <div className={styles.filterGroup}>
-                <label htmlFor="search-agencies" className={styles.filterFieldLabel}>
-                  Search
-                </label>
-                <input
-                  id="search-agencies"
-                  type="text"
-                  placeholder="Search agencies..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className={styles.filterSelect}
-                  style={{ height: '2.375rem', padding: '0.5rem 11.75rem' }}
-                />
-              </div>
-              {FILTER_COLUMNS.map((column) => (
-                <div key={column} className={styles.filterGroup}>
-                  <label htmlFor={`filter-${column}`} className={styles.filterFieldLabel}>
-                    {column.charAt(0).toUpperCase() + column.slice(1)}
-                  </label>
-                  <select
-                    id={`filter-${column}`}
-                    value={filters[column]}
-                    onChange={(e) => handleFilterChange(column, e.target.value)}
-                    className={styles.filterSelect}
-                  >
-                    <option value="">All</option>
-                    {filterOptions[column].map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
+            <div className={styles.filtersWrapper}>
+              <div className={styles.searchSection}>
+                <div className={styles.searchBox}>
+                  <input
+                    id="search-agencies"
+                    type="text"
+                    placeholder="Search agencies..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className={styles.searchInput}
+                  />
                 </div>
-              ))}
-              {Object.values(filters).some((v) => v) && (
-                <button onClick={clearAllFilters} className={styles.clearFiltersBtn}>
-                  Clear Filters
-                </button>
-              )}
+              </div>
+              <div className={styles.filtersSection}>
+                <div className={styles.filtersGrid}>
+                  {FILTER_COLUMNS.map((column) => (
+                    <div key={column} className={styles.filterGroup}>
+                      <label htmlFor={`filter-${column}`} className={styles.filterFieldLabel}>
+                        {column.charAt(0).toUpperCase() + column.slice(1)}
+                      </label>
+                      <select
+                        id={`filter-${column}`}
+                        value={filters[column]}
+                        onChange={(e) => handleFilterChange(column, e.target.value)}
+                        className={styles.filterSelect}
+                      >
+                        <option value="">All</option>
+                        {filterOptions[column].map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+                  {Object.values(filters).some((v) => v || searchTerm) && (
+                    <button onClick={clearAllFilters} className={styles.clearFiltersBtn}>
+                      Clear Filters
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         )}

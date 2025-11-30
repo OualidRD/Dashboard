@@ -386,9 +386,6 @@ export default function ContactsPage() {
               )}
             </p>
           </div>
-          <button onClick={() => router.push('/dashboard')} className={styles.backButton}>
-            ← Back
-          </button>
         </div>
 
         {/* Filters and Search Section */}
@@ -510,7 +507,7 @@ export default function ContactsPage() {
                           disabled={isNewAndLimited}
                           title={isNewAndLimited ? 'Daily limit reached. Upgrade to view.' : 'View contact details'}
                         >
-                          {isNewAndLimited ? '🔒 Locked' : isViewed ? '👁️ Viewed' : 'View'}
+                          {isNewAndLimited ? '🔒 Locked' : isViewed ? 'Viewed' : 'View'}
                         </button>
                       </td>
                     </tr>
